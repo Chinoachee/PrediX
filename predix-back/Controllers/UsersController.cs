@@ -8,7 +8,7 @@ namespace predix_back.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UsersControllers(AppDbContext context) : ControllerBase
+    public class UsersController(AppDbContext context) : ControllerBase
     {
         private readonly AppDbContext _context = context;
 
@@ -20,7 +20,7 @@ namespace predix_back.Controllers
             {
                 return NotFound();
             }
-            var response = new GetByLoginResponse(user.Login, DateTime.Parse(user.LastEntry.ToString()));
+            var response = new GetByLoginResponse(user.Login, DateTimeOffset.FromUnixTimeSeconds(user.LastEntry).LocalDateTime);
             return Ok(response);
         }
 
@@ -37,6 +37,12 @@ namespace predix_back.Controllers
                 return BadRequest(ModelState);
             }
 
+            bool userExists = await _context.Users.AnyAsync(u => u.Login == request.Login || u.Email == request.Email);
+
+            if (userExists)
+            {
+                return BadRequest("Пользователь с таким логином или email уже существует");
+            }
 
             await _context.Users.AddAsync(new User()
             {

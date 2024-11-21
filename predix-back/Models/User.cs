@@ -8,5 +8,6 @@
         public string Email { get; set; }
         public long CreatedAt { get; set; } = DateTimeOffset.Now.ToUnixTimeSeconds();
         public long LastEntry { get; set; } 
+        public List<Prediction> Predictions { get; set; }
     }
 }
