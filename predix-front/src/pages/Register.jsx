@@ -1,16 +1,20 @@
 import React from "react";
 import { Layout, Form, Input, Button, Typography } from "antd";
-import { useNavigate } from "react-router-dom"; // Импорт useNavigate
 import RegisterHeader from "../components/RegisterHeader";
+import axios from "axios";
 
-const { Header, Content } = Layout;
+const { Content } = Layout;
 const { Title } = Typography;
 
 function Register() {
-  const navigate = useNavigate(); // Навигация
-
-  const onFinish = (values) => {
-    console.log("Успешная регистрация:", values);
+  const onFinish = async (values) => {
+    try{
+      const response = await axios.post("http://localhost:5214/api/users/register",values);
+      console.log(values);
+      console.log("Ответ от сервера: ", response.data);
+    }catch(error){
+      console.error("Ошибка при запросе: ", error.response?.data || error.message);
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -67,7 +71,7 @@ function Register() {
       Логин
     </span>
   }
-  name="username"
+  name="login"
   rules={[{ required: true, message: "Пожалуйста, введите логин!" }]}
   style={{ marginBottom: "12px", position: "relative" }}
 >

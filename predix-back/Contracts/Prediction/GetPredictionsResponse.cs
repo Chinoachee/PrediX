@@ -1,4 +1,4 @@
 ﻿namespace predix_back.Contracts.Prediction
 {
-    public record GetPredictionsResponse(string Title,string Description,)
+    public record GetPredictionsResponse(string Title,string Description);
 }

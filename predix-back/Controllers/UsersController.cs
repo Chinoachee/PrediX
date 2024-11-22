@@ -41,7 +41,7 @@ namespace predix_back.Controllers
 
             if (userExists)
             {
-                return BadRequest("Пользователь с таким логином или email уже существует");
+                return BadRequest(new { Message = "Пользователь с таким логином или email уже существует" });
             }
 
             await _context.Users.AddAsync(new User()

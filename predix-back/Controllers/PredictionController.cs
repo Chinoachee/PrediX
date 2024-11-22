@@ -55,10 +55,10 @@ namespace predix_back.Controllers
             return Ok();
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
-        {
+        //[HttpGet]
+        //public async Task<IActionResult> GetAll()
+        //{
             
-        }
+        //}
     }
 }
