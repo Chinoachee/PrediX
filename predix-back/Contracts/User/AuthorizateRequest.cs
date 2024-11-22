@@ -2,19 +2,13 @@
 
 namespace predix_back.Contracts.User
 {
-    public record RegisterUserRequest(
+    public record AuthorizateRequest(
     [Required(ErrorMessage = "Логин обязателен.")]
     [StringLength(50, MinimumLength = 3, ErrorMessage = "Логин должен содержать от 3 до 50 символов.")]
     string Login,
-
-    [Required(ErrorMessage = "Email обязателен.")]
-    [StringLength(100, MinimumLength = 5, ErrorMessage = "Email должен содержать от 5 до 100 символов.")]
-    [EmailAddress(ErrorMessage = "Введите корректный email-адрес.")]
-    string Email,
 
     [Required(ErrorMessage = "Пароль обязателен.")]
     [StringLength(20, MinimumLength = 6, ErrorMessage = "Пароль должен содержать от 6 до 20 символов.")]
     string Password
     );
-
 }
